@@ -133,6 +133,13 @@ dtc_cpp_flags  = -Wp,-MD,$(depfile).pre.tmp -nostdinc		\
                  -Iinclude -I$(src) -Isrc -Itestcase-data	\
                  -undef -D__DTS__
 
+# Try these files in order to find the U-Boot-specific .dtsi include file
+u_boot_dtsi_options = $(strip $(wildcard $(dir $<)$(basename $(notdir $<))-u-boot.dtsi) \
+	$(wildcard $(dir $<)$(subst $\",,$(CONFIG_SYS_SOC))-u-boot.dtsi) \
+	$(wildcard $(dir $<)$(subst $\",,$(CONFIG_SYS_CPU))-u-boot.dtsi) \
+	$(wildcard $(dir $<)$(subst $\",,$(CONFIG_SYS_VENDOR))-u-boot.dtsi) \
+	$(wildcard $(dir $<)u-boot.dtsi))
+
 quiet_cmd_dtc = DTC     $@
 cmd_dtc = $(CPP) $(dtc_cpp_flags) -x assembler-with-cpp -o $(dtc-tmp) $< ; \
         $(DTC) -O dtb -o $@ -b 0 \
