@@ -836,6 +836,12 @@ UBOOTINCLUDE    := \
 	-I$(srctree)/arch/$(ARCH)/include \
 	-include $(srctree)/include/linux/kconfig.h
 
+#ifdef CONFIG_OF_UPSTREAM
+UBOOTINCLUDE    += \
+	-Idevicetree-rebasing/include \
+	$(if $(KBUILD_SRC), -I$(srctree)/devicetree-rebasing/include) \
+#endif
+
 NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
 
 # FIX ME

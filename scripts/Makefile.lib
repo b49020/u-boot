@@ -195,6 +195,7 @@ dtc_cpp_flags  = -Wp,-MD,$(depfile).pre.tmp -nostdinc                    \
 		 -I$(u_boot_dtsi_loc)                                     \
 		 -I$(srctree)/arch/$(ARCH)/dts/include                   \
 		 -I$(srctree)/include                                    \
+		 -I$(srctree)/devicetree-rebasing/include                \
 		 -D__ASSEMBLY__                                          \
 		 -undef -D__DTS__
 
